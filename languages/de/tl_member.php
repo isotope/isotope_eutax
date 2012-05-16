@@ -30,4 +30,4 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_member']['isoeuvatid']   = array('EU VAT-Id', 'Please enter a valid EU VAT-Id.');
+$GLOBALS['TL_LANG']['tl_member']['isoeuvatid']   = array('USt.-Id-Nr.', 'Geben Sie die USt.-Id-Nr. ein');

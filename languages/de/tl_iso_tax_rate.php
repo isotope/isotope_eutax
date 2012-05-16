@@ -30,4 +30,12 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_member']['isoeuvatid']   = array('EU VAT-Id', 'Please enter a valid EU VAT-Id.');
+
+$GLOBALS['TL_LANG']['tl_iso_tax_rate']['isvat'] = array('Ist eine MwSt.', 'Auswählen, wenn der Zuschlag eine MwSt. ist.');
+
+
+/**
+ * Legends
+ */
+
+$GLOBALS['TL_LANG']['tl_iso_config']['eutax_legend'] = 'MwSt.-Einstellungen';

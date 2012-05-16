@@ -3,7 +3,8 @@
 --
 
 CREATE TABLE `tl_iso_config` (
-  `pricenote` int(10) unsigned NOT NULL default '0',
+  `taxnotevatid` int(10) unsigned NOT NULL default '0',
+  `taxnoteoutside` int(10) unsigned NOT NULL default '0',
   `groupwithnetprices` int(10) unsigned NOT NULL default '0',
   `groupwithvatid` int(10) unsigned NOT NULL default '0',
   `groupoutside` int(10) unsigned NOT NULL default '0',

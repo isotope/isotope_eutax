@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
 
 /**
  * Contao Open Source CMS
@@ -28,6 +28,6 @@
 
 
 /**
- * Fields
+ * Back end modules
  */
-$GLOBALS['TL_LANG']['tl_member']['isoeuvatid']   = array('EU VAT-Id', 'Please enter a valid EU VAT-Id.');
+$GLOBALS['TL_LANG']['MOD']['isotope_eutax'] = array('Isotope eCommerce EU VAT handling', 'Enables EU tax settings.');

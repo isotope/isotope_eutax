@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2010 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,20 +21,17 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  de la Haye Kommunikationsdesign 2011
- * @author     Christian de la Haye <http://www.delahaye.de>
- * @package    Isotope EU tax handling
- * @license    LGPL
- * @filesource
+ * @copyright  Isotope eCommerce Workgroup 2009-2012
+ * @author     Christian de la Haye <service@delahaye.de>
+ * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
 
 /**
- * Fields
+ * Hooks
  */
 
-$GLOBALS['ISO_HOOKS']['useTaxRate'][] = array('IsotopeEuTax', 'noVat');
-$GLOBALS['TL_HOOKS']['parseFrontendTemplate'][] = array('IsotopeEuTax', 'injectPricenotes');
-
-
-?>
+$GLOBALS['ISO_HOOKS']['useTaxRate'][] 				= array('IsotopeEuTax', 'applyVat');
+$GLOBALS['TL_HOOKS']['parseFrontendTemplate'][] 	= array('IsotopeEuTax', 'injectNotes');
+$GLOBALS['TL_HOOKS']['postLogin'][] 				= array('IsotopeEuTax', 'switchConfig');
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][] 		= array('IsotopeEuTax', 'isotopeEuTaxInsertTags');

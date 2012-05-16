@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2010 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,11 +21,9 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  de la Haye Kommunikationsdesign 2011
- * @author     Christian de la Haye <http://www.delahaye.de>
- * @package    Isotope EU tax handling
- * @license    LGPL
- * @filesource
+ * @copyright  Isotope eCommerce Workgroup 2009-2012
+ * @author     Christian de la Haye <service@delahaye.de>
+ * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
 
@@ -34,7 +32,7 @@
  */
 
 $GLOBALS['TL_DCA']['tl_iso_config']['palettes']['__selector__'][] = 'vatoutside';
-$GLOBALS['TL_DCA']['tl_iso_config']['palettes']['default'] .= ';{eutax_legend:hide},pricenote,groupwithnetprices,groupwithvatid,vatoutside,eucountries';
+$GLOBALS['TL_DCA']['tl_iso_config']['palettes']['default'] .= ';{eutax_legend:hide},groupwithnetprices,groupwithvatid,taxnotevatid,taxnoteoutside,vatoutside,eucountries';
 
 
 /**
@@ -48,21 +46,12 @@ $GLOBALS['TL_DCA']['tl_iso_config']['subpalettes']['vatoutside'] = 'groupoutside
  * Add fields
  */
 
-$GLOBALS['TL_DCA']['tl_iso_config']['fields']['pricenote'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_iso_config']['pricenote'],
-	'exclude'                 => true,
-	'inputType'               => 'select',
-	'options_callback'        => array('tl_iso_eutax', 'getArticleAlias'),
-	'eval'                    => array('mandatory'=>false)
-);
-
 $GLOBALS['TL_DCA']['tl_iso_config']['fields']['groupwithnetprices'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_iso_config']['groupwithnetprices'],
 	'inputType'               => 'select',
 	'foreignKey'			  => 'tl_member_group.name',
-	'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'w50')
+	'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true)
 );
 
 $GLOBALS['TL_DCA']['tl_iso_config']['fields']['groupwithvatid'] = array
@@ -70,7 +59,25 @@ $GLOBALS['TL_DCA']['tl_iso_config']['fields']['groupwithvatid'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_iso_config']['groupwithvatid'],
 	'inputType'               => 'select',
 	'foreignKey'			  => 'tl_member_group.name',
-	'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'tl_class'=>'w50')
+	'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true)
+);
+
+$GLOBALS['TL_DCA']['tl_iso_config']['fields']['taxnotevatid'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_iso_config']['taxnotevatid'],
+	'exclude'                 => true,
+	'inputType'               => 'select',
+	'options_callback'        => array('tl_iso_eutax', 'getArticleAlias'),
+	'eval'                    => array('mandatory'=>false)
+);
+
+$GLOBALS['TL_DCA']['tl_iso_config']['fields']['taxnoteoutside'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_iso_config']['taxnoteoutside'],
+	'exclude'                 => true,
+	'inputType'               => 'select',
+	'options_callback'        => array('tl_iso_eutax', 'getArticleAlias'),
+	'eval'                    => array('mandatory'=>false, 'tl_class'=>'clr')
 );
 
 $GLOBALS['TL_DCA']['tl_iso_config']['fields']['vatoutside'] = array
@@ -99,9 +106,12 @@ $GLOBALS['TL_DCA']['tl_iso_config']['fields']['eucountries'] = array
 
 
 /**
- * Additional methods
+ * Class tl_iso_germanize
+ * 
+ * Provide additional methods for DCA.
+ * @copyright  Isotope eCommerce Workgroup 2009-2012
+ * @author     Christian de la Haye <service@delahaye.de>
  */
-
 class tl_iso_eutax extends Backend
 {
 
@@ -137,13 +147,13 @@ class tl_iso_eutax extends Backend
 				return $arrAlias;
 			}
 
-			$objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid WHERE a.pid IN(". implode(',', array_map('intval', array_unique($arrPids))) .") AND a.id!=(SELECT pid FROM tl_content WHERE id=?) ORDER BY parent, a.sorting")
-									   ->execute($dc->id);
+			$objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid WHERE a.pid IN(". implode(',', array_map('intval', array_unique($arrPids))) .") ORDER BY parent, a.sorting")
+									   ->execute();
 		}
 		else
 		{
-			$objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid WHERE a.id!=(SELECT pid FROM tl_content WHERE id=?) ORDER BY parent, a.sorting")
-									   ->execute($dc->id);
+			$objAlias = $this->Database->prepare("SELECT a.id, a.pid, a.title, a.inColumn, p.title AS parent FROM tl_article a LEFT JOIN tl_page p ON p.id=a.pid ORDER BY parent, a.sorting")
+									   ->execute();
 		}
 
 		if ($objAlias->numRows)
@@ -161,4 +171,3 @@ class tl_iso_eutax extends Backend
 	}
 
 }
-?>

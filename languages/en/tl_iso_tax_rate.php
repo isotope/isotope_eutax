@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2010 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,11 +21,9 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  de la Haye Kommunikationsdesign 2011
- * @author     Christian de la Haye <http://www.delahaye.de>
- * @package    Isotope EU tax handling
- * @license    LGPL
- * @filesource
+ * @copyright  Isotope eCommerce Workgroup 2009-2012
+ * @author     Christian de la Haye <service@delahaye.de>
+ * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
 
@@ -37,8 +35,7 @@ $GLOBALS['TL_LANG']['tl_iso_tax_rate']['isvat'] = array('The tax rate is an EU V
 
 
 /**
- * Legend
+ * Legends
  */
 
 $GLOBALS['TL_LANG']['tl_iso_config']['eutax_legend'] = 'EU Tax settings';
-?>
