@@ -177,6 +177,16 @@ class IsotopeEuTax extends IsotopeFrontend
 				return $return;
 			}
 		}
+		
+		if($arrTag[0] == 'isotopeEuTax' && $arrTag[1] == 'member_vatid')
+    {      
+       
+       $ObjUser = $this->Database->prepare("SELECT * FROM tl_member WHERE id=?")->limit(1)->execute($arrTag[2]);
+                   
+       $return = $this->replaceInsertTags($ObjUser->isoeuvatid);		
+        
+       return $return;	
+		}		
 
 		return false;
 	}
